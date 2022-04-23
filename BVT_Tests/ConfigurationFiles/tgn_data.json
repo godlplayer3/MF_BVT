@@ -1,0 +1,34 @@
+{   
+    "login":{
+        "email": "mk1@como.tv",
+        "pass": "aaa1111!!",
+        "url": "http://reachclient.proda.tgn.tv3cloud.com/?oauth=genericendusers&tenant=como",
+        "UserName":"Username",
+        "Password":"Password",
+        "submitButton":"submitButton",
+        "checkUrl":"/Account/Login",
+        "buttonGroup":"button-group",
+        "userAccountXpath":"//*[@id=\"profileCards\"]/div[1]",
+        "settingsButton":"settingsButton",
+        "profileSignOut":"profileSignOut",
+        "profileSignOutButton":"profileSignOut-button",
+        "FEEDBACKDIALOGYES":"FEEDBACK_DIALOG_YES"
+    },
+    "liveTv":{
+        "liveChannelTabPath":"/html/body/div[1]/div[7]/div[2]/div[5]/div[2]/div[2]",
+        "liveChannelOnePath":"/html/body/div[1]/div[7]/div[2]/div[4]/div[3]/div/div[2]/div[4]/div[2]",
+        "screen":"screen",
+        "exit":"EXIT",
+        "backButton":"mediaroomIcon"
+    },
+    "userAccount":{
+        "user":"sectionheader"
+    },
+    "vod":{
+        "vodTabPath":"/html/body/div[1]/div[7]/div[2]/div[5]/div[3]/div[2]",
+        "navigateMovieVod":"/html/body/div[1]/div[7]/div[2]/div[6]/div[1]/div[2]/div[1]",
+        "movieVod":"/html/body/div[1]/div[7]/div[2]/div[4]/div[4]/div/div[2]/div[3]/div[2]",
+        "navigateTvShowVod":"/html/body/div[1]/div[7]/div[2]/div[6]/div[1]/div[3]/div[1]",
+        "tvShowVod":"/html/body/div[1]/div[7]/div[2]/div[4]/div[5]/div/div[2]/div[3]/div[2]"
+    }
+  }

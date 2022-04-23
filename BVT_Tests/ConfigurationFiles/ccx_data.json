@@ -1,0 +1,35 @@
+{   
+    "login":{
+        "email": "vendor13",
+        "pass": "!vendor1313",
+        "url": "https://reachclient.proda.ccx.tv3cloud.com/?oauth=genericendusers",
+        "UserName":"username",
+        "Password":"password",
+        "submitButton":"loginButton_0",
+        "checkUrl":"/am/XUI/",
+        "buttonGroup":"button-group",
+        "userAccountXpath":"/html/body/div[1]/div[7]/div[3]/div[1]/div[2]/div/div[1]",
+        "settingsButton":"settingsButton",
+        "profileSignOut":"profileSignOut",
+        "profileSignOutButton":"profileSignOut-button",
+        "FEEDBACKDIALOGYES":"FEEDBACK_DIALOG_YES"
+    },
+    "liveTv":{
+        "liveChannelTabPath":"/html/body/div[1]/div[7]/div[2]/div[5]/div[2]/div[2]",
+        "liveChannelOnePath":"  /html/body/div[1]/div[7]/div[2]/div[4]/div[3]/div/div[2]/div[3]/div[2]",
+        "screen":"screen",
+        "exit":"EXIT",
+        "backButton":"mediaroomIcon"
+    },
+    "userAccount":{
+        "user":"sectionheader"
+    },
+    "vod":{
+       "vodTabPath":"/html/body/div[1]/div[7]/div[2]/div[6]/div[1]/div[3]/div[1]",
+       "vodInfoClick":"/html/body/div[1]/div[7]/div[2]/div[4]/div[5]/div/div[2]/div[3]/div[1]",
+       "vodMovieCanvas":"/html/body/div[1]/div[7]/div[3]/div[8]/div[4]/div[1]/div/canvas",
+       "movieVod":"html/body/div[1]/div[7]/div[3]/div[8]/div[4]/div[1]/div/div[4]/div[3]/div[2]",
+       "vodMovieCanvasTwo":"/html/body/div[1]/div[7]/div[4]/div[2]/div[2]/div/div[3]/div/div/canvas",
+       "vodMovieTwo":"/html/body/div[1]/div[7]/div[4]/div[2]/div[2]/div/div[3]/div/div/div[3]/div[3]/div[2]"
+    }
+  }
