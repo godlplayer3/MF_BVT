@@ -1,49 +1,74 @@
-var data, tab, swd, browser, caps, env;
+/*
+    LambdaTest selenium automation sample example
+    Configuration
+    ----------
+    username: Username can be found at automation dashboard
+    accessKey:  AccessKey can be generated from automation dashboard or profile section
+ 
+    Result
+    -------
+    Execute NodeJS Automation Tests on LambdaTest Distributed Selenium Grid
+*/
+const swd = require('selenium-webdriver');
+ 
+/*
+    Setup remote driver
+    Params
+    ----------
+    platform : Supported platform - (Windows 10, Windows 8.1, Windows 8, Windows 7,  macOS High Sierra, macOS Sierra, OS X El Capitan, OS X Yosemite, OS X Mavericks)
+    browserName : Supported platform - (chrome, firefox, Internet Explorer, MicrosoftEdge, Safari)
+    version :  Supported list of version can be found at https://www.lambdatest.com/capabilities-generator/
+*/
+ 
+// username: Username can be found at automation dashboard
+const USERNAME = 'mr.coolshahrukhkhan';
+ 
+// AccessKey:  AccessKey can be generated from automation dashboard or profile section
+const KEY = 'PhTfmbFz5E2xqU6NvlU6VZbl9XJwptGJHc8epqW7AvOxKTwIqc';
+ 
+// gridUrl: gridUrl can be found at automation dashboard
+const GRID_HOST = 'hub.lambdatest.com/wd/hub';
 
 
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
-  
-  readline.question(`Which customer to test?`, name => {
-    console.log(`Hi ${name}!`)
-    env = name;
-    readline.close()
-  })
 
+var data,tab,caps,browser;
 
+caps = {
+    platform: 'windows 10',
+    browserName: 'chrome',
+    version: '100.0',
+    resolution: '1280x800',
+    network: true,
+    visual: true,
+    console: true,
+    video: true,
+    name: 'User test', // name of the test
+    build: 'NodeJS build' // name of the build
+}
 
+// URL: https://{username}:{accessKey}@hub.lambdatest.com/wd/hub
+const gridUrl = 'https://' + USERNAME + ':' + KEY + '@' + GRID_HOST;
 
-setTimeout(init,10000);
+ browser = new swd.Builder();
+//const caps =swd.Capabilities.chrome();
+//caps.set('goog:loggingPrefs', {'performance':'ALL'});
+// tab = browser.forBrowser("chrome").withCapabilities(caps).build();
 
+// setup and build selenium driver object
+ tab = new swd.Builder()
+    .usingServer(gridUrl)
+    .withCapabilities(caps)
+    .build();
 
-function init(){
-
-const { WebDriver } = require("selenium-webdriver");
-const { WebElement } = require("selenium-webdriver");
 
 // Include the chrome driver
 require("chromedriver");
-swd = require("selenium-webdriver");
+
 //const { ableToSwitchToFrame } = require("selenium-webdriver/lib/until");
-browser = new swd.Builder();
-caps =swd.Capabilities.chrome();
-caps.set('goog:loggingPrefs', {'performance':'ALL'});
-tab = browser.forBrowser("chrome").withCapabilities(caps).build();
+
+
 //var fs = require("fs");
-
-console.log(env);
 loginTest();
-
-}
-
-
-
-
-//var data = ["./ConfigurationFiles/tgn_data.json", "./ConfigurationFiles/ccx_data.json"];
-
-
 
 
 
@@ -180,7 +205,20 @@ function checkUserAccount(){
     var textPromise = tab.findElement(swd.By.className(data.userAccount.user)).getText();
     textPromise.then((text) => {
     console.log("user logged in as " + text);
+    if(text!=null || text!=""){
+        tab.executeScript('lambda-status=passed').then(function(return_value) {
+            console.log('returned ', return_value)
+        });
+
+    }
+    else{
+        tab.executeScript('lambda-status=failed').then(function(return_value) {
+            console.log('returned ', return_value)
+        });
+        closeDriver();
+    }
     });
+
     setTimeout(profileSignOutTest, 5000);
 }
 function profileSignOutTest(){
@@ -214,6 +252,9 @@ function confirmLogOutTest(){
     confirmLogOutButton.click();
 
     console.log("Logout Successful");
+    setTimeout(closeDriver,5000);
 }
 
-
+function closeDriver(){
+    tab.quit();
+}

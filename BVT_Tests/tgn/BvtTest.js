@@ -31,7 +31,7 @@ const GRID_HOST = 'hub.lambdatest.com/wd/hub';
 
 
 
-var data,tab,caps,browser;
+var data,tab,caps,browser,counterTgn=0;;
 
 caps = {
     platform: 'windows 10',
@@ -42,7 +42,7 @@ caps = {
     visual: true,
     console: true,
     video: true,
-    name: 'Login test', // name of the test
+    name: 'BVT test', // name of the test
     build: 'NodeJS build' // name of the build
 }
 
@@ -185,9 +185,6 @@ tabToOpen
         }
         });
    
-  
-   
-   
 }
 
 function identityTest(){
@@ -210,11 +207,142 @@ function userAccountTest(){
     console.log("Again...");
     let profileCardButton = tab.findElement(swd.By.xpath(data.login.userAccountXpath));
     profileCardButton.click();
-    setTimeout(settingsTest,5000);
+
+    //LiveTvTest
+    //setTimeout(settingsTest,5000);
+    setTimeout(LiveChannelTest,5000);
     
 }
 
 
+function LiveChannelTest(){
+    console.log("Testing Live TV...");
+    let liveTvButton = tab.findElement(swd.By.xpath(data.liveTv.liveChannelTabPath));
+    liveTvButton.click();
+    setTimeout(playRandomLiveChannel,5000);
+        
+}
+
+
+function playRandomLiveChannel(){
+    console.log("Playing Live TV...");
+    let playButton = tab.findElement(swd.By.xpath(data.liveTv.liveChannelOnePath));
+    playButton.click();
+    setTimeout(closeLiveTvPlayerTest, 60000);
+}
+
+function closeLiveTvPlayerTest(){
+
+    //printBrowserLogs();
+    console.log("closing live tv player");
+
+    let promiseScreenButton =
+            tab.findElement(swd.By.id(data.liveTv.screen));
+      
+            promiseScreenButton.click();
+
+
+        let promiseExitButton =
+            tab.findElement(swd.By.id(data.liveTv.exit));
+      
+            promiseExitButton.click();
+
+        setTimeout(liveTvBackButtonTest, 10000);
+
+           
+}
+
+function liveTvBackButtonTest(){
+    let promiseBackButton =
+    tab.findElement(swd.By.id(data.liveTv.backButton));
+
+    promiseBackButton.click();
+    
+    console.log("Finallllyyy");
+
+    //VOD Test
+    setTimeout(VodChannelTest,5000);
+    //setTimeout(settingsTest, 10000);
+    
+}
+
+function VodChannelTest(){
+    console.log("Testing VOD...");
+    let vodButton = tab.findElement(swd.By.xpath(data.vod.vodTabPath));
+    vodButton.click();
+    setTimeout(navigateMovieVod,5000);    
+   
+}
+
+
+
+function navigateMovieVod(){ 
+    let vodButton = tab.findElement(swd.By.xpath(data.vod.navigateMovieVod));
+    vodButton.click();
+    
+    setTimeout(playRandomVodChannel,5000);
+}
+
+function playRandomVodChannel(){
+    let vodPlayButton = tab.findElement(swd.By.xpath(data.vod.movieVod));
+    vodPlayButton.click();
+    setTimeout(closeVodPlayerTest,10000);
+
+}
+
+function closeVodPlayerTest(){
+
+    //printBrowserLogs();
+    console.log("closing vod player");
+
+    let promiseScreenButton =
+            tab.findElement(swd.By.id(data.liveTv.screen));
+      
+            promiseScreenButton.click();
+
+
+        let promiseExitButton =
+            tab.findElement(swd.By.id(data.liveTv.exit));
+      
+            promiseExitButton.click();
+            setTimeout(VodBackButtonTest, 10000);
+
+ }
+
+           
+
+
+function VodBackButtonTest(){
+    let promiseBackButton =
+    tab.findElement(swd.By.id(data.liveTv.backButton));
+
+    promiseBackButton.click();
+    
+    console.log("Finallllyyy");
+    counterTgn=counterTgn +1;
+    //tgn
+
+        if(counterTgn==1){
+            setTimeout(vodTvShowsTest, 5000);
+        }
+        else{
+            setTimeout(settingsTest,5000);
+        }
+}
+
+function vodTvShowsTest(){
+    let vodTvShowButton = tab.findElement(swd.By.xpath(data.vod.navigateTvShowVod));
+    vodTvShowButton.click();
+    setTimeout(playVodTvShowTest, 5000);
+    
+}
+
+function playVodTvShowTest(){
+    let vodTvShowPlayButton = tab.findElement(swd.By.xpath(data.vod.tvShowVod));
+    vodTvShowPlayButton.click();
+    setTimeout(closeVodPlayerTest,10000);
+    
+}
 
 
 
@@ -225,10 +353,32 @@ function settingsTest(){
 
     settingButton.click();
 
-   
+    //user test
+    setTimeout(checkUserAccount, 5000);
 
+    //setTimeout(profileSignOutTest, 10000);
+}
 
-    setTimeout(profileSignOutTest, 10000);
+function checkUserAccount(){
+    console.log("checking the user");
+    var textPromise = tab.findElement(swd.By.className(data.userAccount.user)).getText();
+    textPromise.then((text) => {
+    console.log("user logged in as " + text);
+    if(text!=null || text!=""){
+        tab.executeScript('lambda-status=passed').then(function(return_value) {
+            console.log('returned ', return_value)
+        });
+
+    }
+    else{
+        tab.executeScript('lambda-status=failed').then(function(return_value) {
+            console.log('returned ', return_value)
+        });
+        closeDriver();
+    }
+    });
+
+    setTimeout(profileSignOutTest, 5000);
 }
 
 function profileSignOutTest(){
