@@ -177,11 +177,7 @@ tabToOpen
         }
         else{
             console.log("login successful");
-            tab.executeScript('lambda-status=passed').then(function(return_value) {
-                console.log('returned ', return_value)
-            });
-            
-                setTimeout(identityTest,20000);      
+            setTimeout(identityTest,20000);      
         }
         });
    
@@ -228,7 +224,7 @@ function playRandomLiveChannel(){
     console.log("Playing Live TV...");
     let playButton = tab.findElement(swd.By.xpath(data.liveTv.liveChannelOnePath));
     playButton.click();
-    setTimeout(closeLiveTvPlayerTest, 60000);
+    setTimeout(closeLiveTvPlayerTest, 20000);
 }
 
 function closeLiveTvPlayerTest(){
@@ -241,15 +237,20 @@ function closeLiveTvPlayerTest(){
       
             promiseScreenButton.click();
 
+            setTimeout(exitLiveTvButtonClick,4000);
 
-        let promiseExitButton =
+           
+}
+
+function exitLiveTvButtonClick(){
+
+    let promiseExitButton =
             tab.findElement(swd.By.id(data.liveTv.exit));
       
             promiseExitButton.click();
 
         setTimeout(liveTvBackButtonTest, 10000);
-
-           
+    
 }
 
 function liveTvBackButtonTest(){
@@ -286,7 +287,8 @@ function navigateMovieVod(){
 function playRandomVodChannel(){
     let vodPlayButton = tab.findElement(swd.By.xpath(data.vod.movieVod));
     vodPlayButton.click();
-    setTimeout(closeVodPlayerTest,10000);
+
+    setTimeout(closeVodPlayerTest,30000);
 
 }
 
@@ -299,17 +301,18 @@ function closeVodPlayerTest(){
             tab.findElement(swd.By.id(data.liveTv.screen));
       
             promiseScreenButton.click();
-
-
-        let promiseExitButton =
-            tab.findElement(swd.By.id(data.liveTv.exit));
-      
-            promiseExitButton.click();
-            setTimeout(VodBackButtonTest, 10000);
-
+            setTimeout(exitVodButtonClick,4000);
+       
  }
 
-           
+function exitVodButtonClick(){
+    let promiseExitButton =
+    tab.findElement(swd.By.id(data.liveTv.exit));
+
+    promiseExitButton.click();
+    setTimeout(VodBackButtonTest, 10000);
+
+}      
 
 
 function VodBackButtonTest(){
@@ -340,7 +343,7 @@ function vodTvShowsTest(){
 function playVodTvShowTest(){
     let vodTvShowPlayButton = tab.findElement(swd.By.xpath(data.vod.tvShowVod));
     vodTvShowPlayButton.click();
-    setTimeout(closeVodPlayerTest,10000);
+    setTimeout(closeVodPlayerTest,30000);
     
 }
 

@@ -214,7 +214,7 @@ function playRandomLiveChannel(){
     console.log("Playing Live TV...");
     let playButton = tab.findElement(swd.By.xpath(data.liveTv.liveChannelOnePath));
     playButton.click();
-    setTimeout(closePlayerTest, 60000);
+    setTimeout(closePlayerTest, 30000);
 }
 
 function closePlayerTest(){
@@ -228,14 +228,19 @@ function closePlayerTest(){
             promiseScreenButton.click();
 
 
-        let promiseExitButton =
-            tab.findElement(swd.By.id(data.liveTv.exit));
-      
-            promiseExitButton.click();
+        setTimeout(exitButtonClick,4000);
+        
+}
 
-        setTimeout(backButtonTest, 10000);
+function exitButtonClick(){
+    let promiseExitButton =
+    tab.findElement(swd.By.id(data.liveTv.exit));
 
-           
+    promiseExitButton.click();
+
+    setTimeout(backButtonTest, 10000);
+
+   
 }
 
 function backButtonTest(){

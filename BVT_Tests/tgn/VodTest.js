@@ -218,7 +218,7 @@ function navigateMovieVod(){
 function playRandomVodChannel(){
     let vodPlayButton = tab.findElement(swd.By.xpath(data.vod.movieVod));
     vodPlayButton.click();
-    setTimeout(closePlayerTest,10000);
+    setTimeout(closePlayerTest,30000);
 
 }
 
@@ -231,16 +231,17 @@ function closePlayerTest(){
             tab.findElement(swd.By.id(data.liveTv.screen));
       
             promiseScreenButton.click();
+            setTimeout(exitButtonClick,4000);
+ }
 
-
-        let promiseExitButton =
+function exitButtonClick(){
+    let promiseExitButton =
             tab.findElement(swd.By.id(data.liveTv.exit));
       
             promiseExitButton.click();
             setTimeout(backButtonTest, 10000);
 
- }
-
+}
            
 
 
@@ -260,11 +261,7 @@ function backButtonTest(){
         else{
             setTimeout(settingsTest,5000);
         }
-   
-
 }
-
-
 
 
 function vodTvShowsTest(){
@@ -319,6 +316,9 @@ function confirmLogOutTest(){
     confirmLogOutButton.click();
 
     console.log("Logout Successful");
+    tab.executeScript('lambda-status=passed').then(function(return_value) {
+        console.log('returned ', return_value)
+    });
     setTimeout(closeDriver, 5000);
 }
 
